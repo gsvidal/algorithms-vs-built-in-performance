@@ -6,7 +6,7 @@ const n = 1000000; // 1M array items
 const ar = new Array(n).fill(0).map((_, idx) => idx + 1);
 const target = 100000;
 
-const binarySearch = (sortedArray, target) => {
+export const binarySearch = (sortedArray, target) => {
   let leftIndex = 0;
   let rightIndex = sortedArray.length - 1;
   while (leftIndex <= rightIndex) {

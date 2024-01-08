@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css"/>
+    <title>Bar Chart</title>
+    <style>
+      canvas {
+        border: 1px solid #000;
+      }
+    </style>
+  </head>
+  <body>
+    <select name="algorithm" id="algorithm">
+      <option class="option" value="default">--Select an algorithm--</option>
+      <option class="option" value="select">Select Sorting</option>
+      <option class="option" value="bubble">Bubble Sorting</option>
+    </select>
+    <canvas id="barChart" width="1000" height="300"></canvas>
+
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>
