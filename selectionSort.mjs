@@ -2,10 +2,9 @@
 // const n = 100000;
 // const ar = new Array(n).fill(0).map((_, index) => index + 1);
 
-const sleep = (duration) =>
-  new Promise((resolve) => setTimeout(resolve, duration));
+import { sleep } from "./helpers.mjs";
 
-export const selectionSort = async (unsortedArray, callback) => {
+export const selectionSort = async (unsortedArray, callback, control) => {
   const array = [...unsortedArray];
 
   for (let i = 0; i < array.length - 1; i++) {
@@ -15,24 +14,26 @@ export const selectionSort = async (unsortedArray, callback) => {
     let swap = 0;
 
     for (let j = i + 1; j < array.length; j++) {
+      if (control.stop) return;
+
       if (array[j] < min) {
         min = array[j];
-        minIdx = j
+        minIdx = j;
         k = j;
         swap++;
       }
-      callback(array, minIdx, j);
-      await sleep(500);
+      callback("selection", array, minIdx, j);
+      await sleep(control.time);
     }
     if (swap !== 0) {
       const temp = array[i];
       array[i] = min;
       array[k] = temp;
     }
-    console.log(array);
-    callback(array, minIdx);
-    
-    await sleep(500);
+    // console.log(array);
+    callback("selection", array, minIdx);
+
+    await sleep(control.time);
   }
   return array;
 };

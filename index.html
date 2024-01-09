@@ -3,21 +3,60 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles.css"/>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&family=Rubik+Glitch&display=swap"
+      rel="stylesheet"
+    />
     <title>Bar Chart</title>
-    <style>
-      canvas {
-        border: 1px solid #000;
-      }
-    </style>
   </head>
   <body>
-    <select name="algorithm" id="algorithm">
-      <option class="option" value="default">--Select an algorithm--</option>
-      <option class="option" value="select">Select Sorting</option>
-      <option class="option" value="bubble">Bubble Sorting</option>
-    </select>
-    <canvas id="barChart" width="1000" height="300"></canvas>
+    <h1 class="title">Sorting Algorithm Visualizer</h1>
+    <div class="range-container">
+      <label for="size">Size</label>
+      <input
+        id="size"
+        class="range range--size"
+        type="range"
+        min="5"
+        max="25"
+        step="1"
+        value="10"
+      />
+    </div>
+    <span class="range-text range-text--left">-</span>
+    <span class="range-text range-text--right">+</span>
+    <div class="range-container">
+      <label for="speed">Speed</label>
+      <input
+        id="speed"
+        class="range range--speed"
+        type="range"
+        min="100"
+        max="1000"
+        step="50"
+      />
+    </div>
+    <span class="range-text range-text--left">+</span>
+    <span class="range-text range-text--right">-</span>
+    <div class="select-container">
+      <label for="algorithm">Algorithm: </label>
+      <select class="border" name="algorithm" id="algorithm">
+        <option class="option" value="none">--Select an algorithm--</option>
+        <option class="option" value="selection">Select Sorting</option>
+        <option class="option" value="bubble">Bubble Sorting</option>
+      </select>
+    </div>
+    <button class="button button--reset">Reset</button>
+    <canvas
+      class="canvas border"
+      id="barChart"
+      width="1000"
+      height="300"
+    ></canvas>
+    <p class="legend"></p>
 
     <script type="module" src="./index.js"></script>
   </body>

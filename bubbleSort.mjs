@@ -21,17 +21,25 @@
 
 // i = 4; j = 0; exit
 
+import { sleep } from "./helpers.mjs";
+
 // ascending order
-export const bubbleSort = (unsortedArray) => {
+export const bubbleSort = async (unsortedArray, callback, control) => {
   const array = [...unsortedArray];
 
   for (let i = 0; i < array.length; i++) {
     for (let j = 0; j < array.length - i - 1; j++) {
+      if (control.stop) return;
       if (array[j] > array[j + 1]) {
         //swap
         const temp = array[j];
         array[j] = array[j + 1];
         array[j + 1] = temp;
+        callback("bubble-swap", array, j, j + 1);
+        await sleep(control.time);
+      } else {
+        callback("bubble", array, j, j + 1);
+        await sleep(control.time);
       }
     }
   }
