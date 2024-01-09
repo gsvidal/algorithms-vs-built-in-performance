@@ -143,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (sortedArray?.length > 0) {
         renderCanvas("none", sortedArray);
       }
-      // console.log("finish");
       if (selectedAlgorithm === "selection") {
         legend.innerHTML = legendSelection;
       } else if (selectedAlgorithm === "bubble") {
