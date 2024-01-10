@@ -33,6 +33,7 @@ const legendSelection = `
     <p>Time complexity : O(n²)</p>
   </div>
   `;
+
 const legendBubble = `
   <div class="legend-content border">
     <div class="legend-container">
