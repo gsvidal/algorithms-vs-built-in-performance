@@ -22,36 +22,43 @@ const algorithms = {
   bubble: bubbleSort,
 };
 
-let minIdx, currentIdx;
-let alg = "none";
-
 const legendSelection = `
   <div class="legend-content border">
-    <div>
+    <div class="legend-container">
       <span class="legend-color legend-color--red"></span>: <span>Minimun value</span>
     </div>
-    <div>
+    <div class="legend-container">
       <span class="legend-color legend-color--green"></span>: <span>Current value</span>
     </div>
+    <p>Time complexity : O(n²)</p>
   </div>
   `;
 const legendBubble = `
   <div class="legend-content border">
-    <div>
-      <span class="legend-color legend-color--red"></span>: <span>Swapping values</span>
+    <div class="legend-container">
+      <span class="legend-color legend-color--red"></span>: <span>Comparing values (swap)</span>
     </div>
-    <div>
+    <div class="legend-container">
       <span class="legend-color legend-color--green"></span>: <span>Comparing values (no swap)</span>
     </div>
+    <p>O(n²)</p>
   </div>
   `;
+
+const legendText = {
+  selection: legendSelection,
+  bubble: legendBubble,
+};
+
+let minIdx, currentIdx;
+let alg = "none";
 document.addEventListener("DOMContentLoaded", function () {
   // Get the Canvas element and its context
   const canvas = document.getElementById("barChart");
   const ctx = canvas.getContext("2d");
   const legend = document.querySelector(".legend");
-
-  // Data for the bar chart
+  const speedInput = document.querySelector(".range--speed");
+  const sizeInput = document.querySelector(".range--size");
 
   // Bar properties
   const barSpacing = 20;
@@ -108,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const selectElement = document.querySelector("select");
 
   const control = {
-    time: 1000,
+    time: +speedInput.value,
     stop: false,
   };
 
@@ -118,7 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     selectElement.value = "none";
     defaultArray = [...generateArray(size)];
-    // console.log(arr);
     selectElement.removeAttribute("disabled");
     control.stop = true;
     renderCanvas("none", defaultArray);
@@ -133,6 +139,7 @@ document.addEventListener("DOMContentLoaded", function () {
     event.target.setAttribute("disabled", true);
     const selectedAlgorithm = event.target.value;
     if (selectedAlgorithm !== "none") {
+      legend.innerHTML = legendText[selectedAlgorithm];
       control.stop = false;
       const sortedArray = await algorithms[selectedAlgorithm](
         defaultArray,
@@ -143,22 +150,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (sortedArray?.length > 0) {
         renderCanvas("none", sortedArray);
       }
-      if (selectedAlgorithm === "selection") {
-        legend.innerHTML = legendSelection;
-      } else if (selectedAlgorithm === "bubble") {
-        legend.innerHTML = legendBubble;
-      }
     }
   });
 
-  const speedInput = document.querySelector(".range--speed");
-
   speedInput.addEventListener("change", (event) => {
     control.time = event.target.value;
-    // console.log(event.target.value);
   });
-
-  const sizeInput = document.querySelector(".range--size");
 
   sizeInput.addEventListener("change", (event) => {
     reset(+event.target.value);

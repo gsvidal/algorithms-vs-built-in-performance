@@ -13,41 +13,44 @@
     <title>Bar Chart</title>
   </head>
   <body>
-    <h1 class="title">Sorting Algorithm Visualizer</h1>
-    <div class="range-container">
-      <label for="size">Size</label>
-      <input
-        id="size"
-        class="range range--size"
-        type="range"
-        min="5"
-        max="25"
-        step="1"
-        value="10"
-      />
-    </div>
-    <span class="range-text range-text--left">-</span>
-    <span class="range-text range-text--right">+</span>
-    <div class="range-container">
-      <label for="speed">Speed</label>
-      <input
-        id="speed"
-        class="range range--speed"
-        type="range"
-        min="50"
-        max="1000"
-        step="50"
-      />
-    </div>
-    <span class="range-text range-text--left">+</span>
-    <span class="range-text range-text--right">-</span>
-    <div class="select-container">
-      <label for="algorithm">Algorithm: </label>
-      <select class="border" name="algorithm" id="algorithm">
-        <option class="option" value="none">--Select an algorithm--</option>
-        <option class="option" value="selection">Select Sorting</option>
-        <option class="option" value="bubble">Bubble Sorting</option>
-      </select>
+    <h1 class="title">Sorting Algorithm <span class="title-secondary">Visualizer</span> </h1>
+    <div class="controls-container">
+      <div class="range-container">
+        <label for="size">Size</label>
+        <input
+          id="size"
+          class="range range--size"
+          type="range"
+          min="5"
+          max="25"
+          step="1"
+          value="10"
+        />
+        <span class="range-text range-text--left">-</span>
+        <span class="range-text range-text--right">+</span>
+      </div>
+      <div class="range-container">
+        <label for="speed">Speed</label>
+        <input
+          id="speed"
+          class="range range--speed"
+          type="range"
+          min="40"
+          max="1000"
+          step="10"
+          value="300"
+        />
+        <span class="range-text range-text--left">+</span>
+        <span class="range-text range-text--right">-</span>
+      </div>
+      <div class="select-container">
+        <label for="algorithm">Algorithm: </label>
+        <select class="border" name="algorithm" id="algorithm">
+          <option class="option" value="none">--Select an algorithm--</option>
+          <option class="option" value="selection">Select Sorting</option>
+          <option class="option" value="bubble">Bubble Sorting</option>
+        </select>
+      </div>
     </div>
     <button class="button button--reset">Reset</button>
     <canvas
