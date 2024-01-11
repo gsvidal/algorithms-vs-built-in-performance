@@ -2,6 +2,7 @@
   --red: #ff8383;
   --green: #85ff85;
   --main: #9c7eff;
+  --main-light: #e1d7ff;
   --secondary: #455eb5;
 }
 
@@ -138,6 +139,15 @@ select:disabled {
 
 .legend-color--green {
   background-color: var(--green);
+}
+
+.legend-color--main {
+  background-color: var(--main);
+}
+
+.legend-color--main-light {
+  border: 1px solid #c1aeff;
+  background-color: var(--main-light);
 }
 
 .button {

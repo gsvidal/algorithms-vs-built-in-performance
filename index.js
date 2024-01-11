@@ -1,12 +1,13 @@
 import { selectionSort } from "./selectionSort.mjs";
 import { bubbleSort } from "./bubbleSort.mjs";
+import { mergeSort } from "./mergeSort.mjs";
 
 const CANVAS_MAX_HEIGHT = 500;
-const CANVAS_WIDTH_WIDTH = 1000;
+const CANVAS_MAX_WIDTH = 1000;
 const CANVAS_PADDING_X = 15;
 
 const generateArray = (size = 10) => {
-  console.log("generate");
+  // console.log("generate");
   const ar = new Array(size)
     .fill(0)
     .map(
@@ -20,6 +21,7 @@ let defaultArray = generateArray();
 const algorithms = {
   selection: selectionSort,
   bubble: bubbleSort,
+  merge: mergeSort,
 };
 
 const legendSelection = `
@@ -42,17 +44,30 @@ const legendBubble = `
     <div class="legend-container">
       <span class="legend-color legend-color--green"></span>: <span>Comparing values (no swap)</span>
     </div>
-    <p>O(n²)</p>
+    <p>Time complexity : O(n²)</p>
+  </div>
+  `;
+const legendMerge = `
+  <div class="legend-content border">
+    <div class="legend-container">
+      <span class="legend-color legend-color--main"></span>: <span>Sorting values</span>
+    </div>
+    <div class="legend-container">
+      <span class="legend-color legend-color--main-light"></span>: <span>No sorted values (yet)</span>
+    </div>
+    <p>Time complexity : O(n log n)</p>
   </div>
   `;
 
 const legendText = {
   selection: legendSelection,
   bubble: legendBubble,
+  merge: legendMerge,
 };
 
 let minIdx, currentIdx;
 let alg = "none";
+
 document.addEventListener("DOMContentLoaded", function () {
   // Get the Canvas element and its context
   const canvas = document.getElementById("barChart");
@@ -68,46 +83,69 @@ document.addEventListener("DOMContentLoaded", function () {
   const redColor = "#ff8383";
   const greenColor = "#85ff85";
   const renderCanvas = (alg, data, minIdx, currentIdx) => {
-    // console.log("rendered")
-    const barWidth =
-      (CANVAS_WIDTH_WIDTH -
-        CANVAS_PADDING_X * 2 -
-        barSpacing * (data.length - 2.5)) /
-      data.length;
-    // Clear the canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Draw bars
-    for (let i = 0; i < data.length; i++) {
-      const x = i * (barWidth + barSpacing);
-      const y = canvas.height - data[i];
+    if (alg === "merge") {
+      // console.log(data.length);
+      const barWidth =
+        (CANVAS_MAX_WIDTH -
+          CANVAS_PADDING_X * 2 -
+          barSpacing * (data.length - 2.5)) /
+        data.length;
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw bars
+      // console.log(minIdx);
+      // Draw bars for the current data
 
-      if (alg === "selection") {
-        // Check if the current bar is the one to highlight as the minimum or the current
-        if (i === minIdx) {
-          ctx.fillStyle = redColor;
-        } else if (i === currentIdx) {
-          ctx.fillStyle = greenColor;
+      for (let i = 0; i < data.length; i++) {
+        const x = i * (barWidth + barSpacing);
+        const y = canvas.height - data[i];
+        if (i > minIdx - 1) {
+          ctx.fillStyle = "#e1d7ff";
         } else {
           ctx.fillStyle = barColor;
         }
-      } else if (alg === "bubble") {
-        if (i === minIdx || i === currentIdx) {
-          ctx.fillStyle = greenColor;
-        } else {
-          ctx.fillStyle = barColor;
-        }
-      } else if (alg === "bubble-swap") {
-        if (i === minIdx || i === currentIdx) {
-          ctx.fillStyle = redColor;
-        } else {
-          ctx.fillStyle = barColor;
-        }
-      } else {
-        ctx.fillStyle = barColor;
+        ctx.fillRect(x, y, barWidth, data[i]);
       }
+    } else {
+      const barWidth =
+        (CANVAS_MAX_WIDTH -
+          CANVAS_PADDING_X * 2 -
+          barSpacing * (data.length - 2.5)) /
+        data.length;
+      // Clear the canvas
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // Draw bars
+      for (let i = 0; i < data.length; i++) {
+        const x = i * (barWidth + barSpacing);
+        const y = canvas.height - data[i];
 
-      // Draw the bar
-      ctx.fillRect(x, y, barWidth, data[i]);
+        if (alg === "selection") {
+          // Check if the current bar is the one to highlight as the minimum or the current
+          if (i === minIdx) {
+            ctx.fillStyle = redColor;
+          } else if (i === currentIdx) {
+            ctx.fillStyle = greenColor;
+          } else {
+            ctx.fillStyle = barColor;
+          }
+        } else if (alg === "bubble") {
+          if (i === minIdx || i === currentIdx) {
+            ctx.fillStyle = greenColor;
+          } else {
+            ctx.fillStyle = barColor;
+          }
+        } else if (alg === "bubble-swap") {
+          if (i === minIdx || i === currentIdx) {
+            ctx.fillStyle = redColor;
+          } else {
+            ctx.fillStyle = barColor;
+          }
+        } else {
+          ctx.fillStyle = barColor;
+        }
+        // Draw the bar
+        ctx.fillRect(x, y, barWidth, data[i]);
+      }
     }
   };
 
@@ -147,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
         renderCanvas,
         control
       );
-      console.log(sortedArray);
       if (sortedArray?.length > 0) {
         renderCanvas("none", sortedArray);
       }

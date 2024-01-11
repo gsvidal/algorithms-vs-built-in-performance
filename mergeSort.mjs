@@ -1,4 +1,11 @@
-export const mergeSort = (unsortedArray) => {
+import { sleep } from "./helpers.mjs";
+
+// let firstRenderMerge = true;
+// let originalData;
+// let idx;
+
+export const mergeSort = async (unsortedArray, callback, control) => {
+  if (control.stop) return ;
   const array = [...unsortedArray];
 
   if (array.length <= 1) {
@@ -6,18 +13,24 @@ export const mergeSort = (unsortedArray) => {
   }
 
   const middleIdx = Math.floor(array.length / 2);
+  callback("merge", array, middleIdx);
+  await sleep(control.time);
 
   const leftSlice = array.slice(0, middleIdx);
   const rightSlice = array.slice(middleIdx);
 
-  const sortedLeft = mergeSort(leftSlice);
+  const sortedLeft = await mergeSort(leftSlice, callback, control);
 
-  const sortedRight = mergeSort(rightSlice);
+  const sortedRight = await mergeSort(rightSlice, callback, control);
 
-  return merge(sortedLeft, sortedRight);
+  // Track changes during merging
+  const mergedArray = merge(sortedLeft, sortedRight, callback, control);
+
+  return mergedArray;
 };
 
-const merge = (left, right) => {
+const merge = async (left, right, callback, control) => {
+  if (control.stop) return ;
   const newArray = [];
   let leftIndex = 0;
   let rightIndex = 0;
@@ -33,7 +46,14 @@ const merge = (left, right) => {
   }
 
   // Add the remaining elements from left and right (if any)
-  return newArray.concat(left.slice(leftIndex), right.slice(rightIndex));
+  const finalArray = newArray.concat(
+    left.slice(leftIndex),
+    right.slice(rightIndex)
+  );
+  
+  callback("merge", finalArray, leftIndex);
+  await sleep(control.time);
+  callback("merge", finalArray, rightIndex);
+  await sleep(control.time);
+  return finalArray;
 };
-
-console.log(mergeSort([8, 6, 1, 3]));
