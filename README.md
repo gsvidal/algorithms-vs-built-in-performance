@@ -12,9 +12,6 @@ This is a Sorting Algorithm Visualizer application that demonstrates the working
 - [Introduction](#introduction)
 - [Features](#features)
 - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
