@@ -27,7 +27,7 @@ const algorithms = {
 const legendSelection = `
   <div class="legend-content border">
     <div class="legend-container">
-      <span class="legend-color legend-color--red"></span>: <span>Minimun value</span>
+      <span class="legend-color legend-color--red"></span>: <span>Minimum value</span>
     </div>
     <div class="legend-container">
       <span class="legend-color legend-color--green"></span>: <span>Current value</span>
